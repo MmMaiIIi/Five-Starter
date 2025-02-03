@@ -1,4 +1,4 @@
-@url=http://localhost:3001/api/auth
+@url=http://localhost:3000/api/auth
 @json=Content-Type: application/json
 
 ### 获取所有用户信息
@@ -56,7 +56,7 @@ get {{url}}/profile
 Authorization: Bearer <invalid-jwt-token>
 
 
-### Google OAuth - 获取授权
+### Google OAuth - 获取授权 -> 打开浏览器http://localhost:3000/api/auth/google
 get {{url}}/google
 
 
