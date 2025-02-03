@@ -112,46 +112,23 @@ router.post('/auth/login', login);
  */
 router.get('/auth/profile', authMiddleware);
 
-/**
- * @swagger
- * /auth/google:
- *   get:
- *     summary: Start Google OAuth authentication
- *     description: Redirect the user to Google for OAuth authentication.
- *     tags: [Authentication]
- *     responses:
- *       302:
- *         description: Redirect to Google OAuth.
- */
+
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-/**
- * @swagger
- * /auth/google/callback:
- *   get:
- *     summary: Google OAuth callback
- *     description: Handle the Google OAuth callback and return the user and token.
- *     tags: [Authentication]
- *     responses:
- *       200:
- *         description: Successfully authenticated with Google.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 user:
- *                   type: object
- *                   properties:
- *                     username:
- *                       type: string
- *                     email:
- *                       type: string
- *                 token:
- *                   type: string
- */
-router.get('/auth/google/callback', passport.authenticate('google', {session: false }), 
+router.get('/auth/google/callback', passport.authenticate('google', { session: false }), 
     (req, res) => {
+        // 在成功认证后，返回用户信息和 token
+        console.log(req.user);
+        res.json({ user: req.user, token: req.user.token });
+    }
+);
+
+router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+router.get('/auth/github/callback', passport.authenticate('github', { session: false }), 
+    (req, res) => {
+        // 在成功认证后，返回用户信息和 token
+        console.log(req.user);
         res.json({ user: req.user, token: req.user.token });
     }
 );
