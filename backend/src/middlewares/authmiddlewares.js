@@ -3,7 +3,7 @@ const { User } = require('../models/users');
 
 exports.verifyToken = async (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ').pop();
+        const token = req.cookies.token;
         if (!token) return res.status(401).json({ message: 'Token is missing' });
 
         const { id } = jwt.verify(token, process.env.JWT_SECRET);

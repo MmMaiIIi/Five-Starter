@@ -4,6 +4,8 @@ const { register, login } = require('../controllers/authController');
 const { verifyToken } = require('../middlewares/authmiddlewares');
 
 const router = express.Router();
+// root route: http://localhost:3000/api/auth
+
 
 /**
  * @swagger

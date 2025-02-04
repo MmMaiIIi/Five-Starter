@@ -1,4 +1,5 @@
 @url=http://localhost:3000/api
+@json=Content-Type: application/json
 
 ### Google OAuth - 点Send Request按钮获取授权 -> 打开浏览器http://localhost:3000/api/auth/google
 get {{url}}/auth/google
@@ -8,3 +9,11 @@ get {{url}}/auth/github
 
 ### get all users - 获取所有用户信息
 get {{url}}/users
+
+### login - 登录
+post {{url}}/auth/login
+
+{
+    "username": "user1",
+    "password": "123456"
+}
