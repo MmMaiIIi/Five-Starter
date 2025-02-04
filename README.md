@@ -1,6 +1,3 @@
-以下是完整的 README 文档，采用 Markdown 格式：
-
-```markdown
 # Five-Starter
 
 A five-minute starter template for procrastinators. Get your app up and running in no time!
@@ -100,4 +97,4 @@ This will give you access to details about the available routes, request bodies,
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
+
