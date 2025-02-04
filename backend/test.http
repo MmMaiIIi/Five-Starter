@@ -12,6 +12,7 @@ get {{url}}/users
 
 ### login - 登录
 post {{url}}/auth/login
+{{json}}
 
 {
     "username": "user1",
