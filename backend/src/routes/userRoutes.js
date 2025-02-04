@@ -1,7 +1,32 @@
 express = require('express');
 const { getAllUsers } = require('../controllers/userController');
+const { verifyToken } = require('../middlewares/userMiddlewares');
 
 const router = express.Router();
+
+/**
+ * @swagger
+ * /profile:
+ *   get:
+ *     summary: Get user profile
+ *     description: Fetch the authenticated user's profile using the JWT token.
+ *     tags: [Authentication]
+ *     security:
+ *       - BearerAuth: []  # This indicates that this endpoint requires authentication via Bearer token
+ *     responses:
+ *       200:
+ *         description: Successfully fetched the user profile.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ */
+ router.get('/profile', verifyToken);
 
 /**
  * @swagger

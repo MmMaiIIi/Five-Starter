@@ -23,7 +23,7 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)) // serve swagger docs
-app.use('/api/auth', authRoutes); // use authorization routes
+app.use('/api', authRoutes); // use authorization routes
 app.use('/api', userRoutes); // use user routes
 
 app.listen(process.env.PORT, () => { 

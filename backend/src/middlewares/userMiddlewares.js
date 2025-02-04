@@ -8,6 +8,7 @@ exports.verifyToken = async (req, res, next) => {
 
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await User.findById(id).select('-password');
+        
         res.json({ user: req.user, message: 'Token is valid' });
         next();
     } catch (error) {
