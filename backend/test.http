@@ -1,8 +1,10 @@
-@url=http://localhost:3000/api/auth
+@url=http://localhost:3000/api
 
 ### Google OAuth - 点Send Request按钮获取授权 -> 打开浏览器http://localhost:3000/api/auth/google
-get {{url}}/google
+get {{url}}/auth/google
 
 ### Github OAuth - 点Send Request按钮获取授权 -> 打开浏览器http://localhost:3000/api/auth/github
-get {{url}}/github
+get {{url}}/auth/github
 
+### get all users - 获取所有用户信息
+get {{url}}/users

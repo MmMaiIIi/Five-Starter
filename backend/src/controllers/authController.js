@@ -1,40 +1,42 @@
 const { User } = require('../models/users');
-const bcrypt = require('bcryptjs');
 const { generateToken } = require('../utils/jwt');
-
-exports.getAllUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
 
 exports.register = async (req, res) => {
     const { username, password } = req.body;
-    
-    console.log(username, password);
+    try {
+        const user = await User.findOne({ username: username });
+        if (user) {
+            return res.status(400).json({ error: 'Username already exists' });
+        }
 
-    const user = await User.findOne({ username: username });
-    if (user) {
-        return res.status(400).json({ error: 'Username already exists' });
-    }
+        const newUser = new User({ username, password });
+        await newUser.save();
 
-    const newUser = new User({ username, password });
-    await newUser.save();
-
-    const token = generateToken(newUser);
-    res.status(201).json({ newUser, token });
+        const token = generateToken(newUser);
+        res.status(201).json({ newUser, token });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }   
 };
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username: username });
-    if(!user || !(await user.comparePassword(password))) {
-        return res.status(400).json({ error: 'Invalid credentials' });
-    }
+    try {
+        const user = await User.findOne({ username: username });
+        if(!user || !(await user.comparePassword(password))) {
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
 
-    const token = generateToken(user);
-    res.status(200).json({ token });
+        const token = generateToken(user);
+        res.status(200).json({ token });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+exports.logout = (req, res) => {
+    // TODO: Implement logout functionality
+    res.status(200).json({ message: 'Logout successful' });
 };

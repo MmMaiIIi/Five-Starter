@@ -1,37 +1,13 @@
 const express = require('express');
 const passport = require('passport');
-const { getAllUsers, register, login } = require('../controllers/authController');
-const { authMiddleware } = require('../middlewares/authmiddlewares');
+const { register, login } = require('../controllers/authController');
+const { verifyToken } = require('../middlewares/authmiddlewares');
 
 const router = express.Router();
 
 /**
  * @swagger
- * /auth/users:
- *   get:
- *     summary: Get all users
- *     description: Retrieve a list of all users in the system.
- *     tags: [Authentication]
- *     responses:
- *       200:
- *         description: A list of all users
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   username:
- *                     type: string
- */
-router.get('/auth/users', getAllUsers);
-
-/**
- * @swagger
- * /auth/register:
+ * /register:
  *   post:
  *     summary: Register a new user
  *     description: Register a new user by providing a username and password.
@@ -53,11 +29,11 @@ router.get('/auth/users', getAllUsers);
  *       400:
  *         description: Invalid input, the request body is missing or incorrect.
  */
-router.post('/auth/register', register);
+router.post('/register', register);
 
 /**
  * @swagger
- * /auth/login:
+ * /login:
  *   post:
  *     summary: Login and receive an authentication token
  *     description: Log in with a username and password to receive an authentication token.
@@ -86,11 +62,11 @@ router.post('/auth/register', register);
  *       400:
  *         description: Invalid username or password.
  */
-router.post('/auth/login', login);
+router.post('/login', login);
 
 /**
  * @swagger
- * /auth/profile:
+ * /profile:
  *   get:
  *     summary: Get user profile
  *     description: Fetch the authenticated user's profile using the JWT token.
@@ -110,12 +86,12 @@ router.post('/auth/login', login);
  *                 email:
  *                   type: string
  */
-router.get('/auth/profile', authMiddleware);
+router.get('/profile', verifyToken);
 
 
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', passport.authenticate('google', { session: false }), 
+router.get('/google/callback', passport.authenticate('google', { session: false }), 
     (req, res) => {
         // 在成功认证后，返回用户信息和 token
         console.log(req.user);
@@ -123,9 +99,9 @@ router.get('/auth/google/callback', passport.authenticate('google', { session: f
     }
 );
 
-router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
 
-router.get('/auth/github/callback', passport.authenticate('github', { session: false }), 
+router.get('/github/callback', passport.authenticate('github', { session: false }), 
     (req, res) => {
         // 在成功认证后，返回用户信息和 token
         console.log(req.user);

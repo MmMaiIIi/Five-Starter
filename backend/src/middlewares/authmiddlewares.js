@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/users');
 
-exports.authMiddleware = async (req, res, next) => {
+exports.verifyToken = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ').pop();
         if (!token) return res.status(401).json({ message: 'Token is missing' });
