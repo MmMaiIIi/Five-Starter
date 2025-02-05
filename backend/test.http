@@ -1,13 +1,17 @@
-@url=http://localhost:3001/api/auth
+@url=http://localhost:3000/api
 @json=Content-Type: application/json
 
-### 获取所有用户信息
-# 该接口没有身份验证，直接返回所有用户信息
+### Google OAuth - 点Send Request按钮获取授权 -> 打开浏览器http://localhost:3000/api/auth/google
+get {{url}}/auth/google
+
+### Github OAuth - 点Send Request按钮获取授权 -> 打开浏览器http://localhost:3000/api/auth/github
+get {{url}}/auth/github
+
+### get all users - 获取所有用户信息
 get {{url}}/users
 
-### 用户注册
-# 注册成功
-post {{url}}/register
+### login - 登录
+post {{url}}/auth/login
 {{json}}
 
 {
@@ -15,53 +19,42 @@ post {{url}}/register
     "password": "123456"
 }
 
-### 用户注册 - 重复用户名
-post {{url}}/register
+### recommendations - 获取推荐任务
+get {{url}}/users/679f6a530b301949e0428f79/recommendations   
+
+### logout - 登出
+get {{url}}/auth/logout
+
+### get all tasks - 获取所有任务信息
+get {{url}}/tasks
+
+### get task by id - 根据任务id获取任务信息
+get {{url}}/tasks/67a2bd47cb089a7643d26ba6
+
+### add task - 创建任务
+post {{url}}/tasks
 {{json}}
 
 {
-    "username": "user2",
-    "password": "123456"
+  "name": "task 1",
+  "description": "user 1 task 1",
+  "dueDate": "2025-02-04T12:07:59.945Z",
+  "priority": "1",
+  "status": "Pending"
 }
 
-
-### 用户登录
-# 登录成功
-post {{url}}/login
+### update task - 更新任务
+put {{url}}/tasks/67a2bd47cb089a7643d26ba6
 {{json}}
 
 {
-    "username": "user1",
-    "password": "123456"
+  "name": "task 1",
+  "description": "user 1 task 1 updated",
+  "dueDate": "2025-02-04T12:07:59.945Z",
+  "priority": "1",
+  "status": "Pending"
 }
 
-###
-# 登录失败，用户名错误
-post {{url}}/login
-{{json}}
-
-{
-    "username": "wronguser",
-    "password": "123456"
-}
-
-### 获取用户资料
-# 用户已登录，使用有效的 JWT token
-get {{url}}/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OWY2YTUzMGIzMDE5NDllMDQyOGY3OSIsImlhdCI6MTczODU0OTU0Nn0.rfM3jcBuLdFM7vWHiysAgcJqjYeCggsNzRziqMvt_2c
-
-###
-# 用户未登录，未提供 JWT token
-get {{url}}/profile
-Authorization: Bearer <invalid-jwt-token>
-
-
-### Google OAuth - 获取授权
-get {{url}}/google
-
-
-### Google OAuth 回调
-# 登录后使用 Google 账号进行登录
-get {{url}}/google/callback?code=<authorization-code>
-Authorization: Bearer <valid-jwt-token>
+### delete task - 删除任务
+delete {{url}}/tasks/{id} 
 
