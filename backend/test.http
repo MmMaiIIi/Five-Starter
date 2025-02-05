@@ -19,8 +19,42 @@ post {{url}}/auth/login
     "password": "123456"
 }
 
-### profile - 获取用户信息
-get {{url}}/auth/profile
+### recommendations - 获取推荐任务
+get {{url}}/users/679f6a530b301949e0428f79/recommendations   
 
 ### logout - 登出
 get {{url}}/auth/logout
+
+### get all tasks - 获取所有任务信息
+get {{url}}/tasks
+
+### get task by id - 根据任务id获取任务信息
+get {{url}}/tasks/67a2bd47cb089a7643d26ba6
+
+### add task - 创建任务
+post {{url}}/tasks
+{{json}}
+
+{
+  "name": "task 1",
+  "description": "user 1 task 1",
+  "dueDate": "2025-02-04T12:07:59.945Z",
+  "priority": "1",
+  "status": "Pending"
+}
+
+### update task - 更新任务
+put {{url}}/tasks/67a2bd47cb089a7643d26ba6
+{{json}}
+
+{
+  "name": "task 1",
+  "description": "user 1 task 1 updated",
+  "dueDate": "2025-02-04T12:07:59.945Z",
+  "priority": "1",
+  "status": "Pending"
+}
+
+### delete task - 删除任务
+delete {{url}}/tasks/{id} 
+

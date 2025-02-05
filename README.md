@@ -57,11 +57,15 @@ To set up the back-end:
    npm start
    ```
 
-4. **Test Authentication Routes:**
-   Open a new terminal and run:
-   ```bash
-   node backend/src/routes/authRoutes.js
-   ```
+---
+
+## API Documentation
+
+You can view the API documentation for the back-end at the following URL:
+
+[http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+This will give you access to details about the available routes, request bodies, and responses.
 
 ---
 
@@ -73,16 +77,6 @@ To test the API for OAuth2 authentication, you can use the `test.http` file incl
 
 1. Open the `test.http` file in your preferred editor.
 2. Run the requests as needed to verify OAuth2 authentication.
-
----
-
-## API Documentation
-
-You can view the API documentation for the back-end at the following URL:
-
-[http://localhost:3000/api-docs](http://localhost:3000/api-docs)
-
-This will give you access to details about the available routes, request bodies, and responses.
 
 ---
 

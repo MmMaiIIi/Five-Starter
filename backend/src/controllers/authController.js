@@ -32,7 +32,6 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await User.findOne({ username: username });
-        console.log(user);
         if(!user || !(await user.comparePassword(password))) {
             return res.status(400).json({ error: 'Invalid credentials' });
         }
@@ -45,7 +44,7 @@ exports.login = async (req, res) => {
             maxAge: 60 * 60 * 24 * 7 // 7 days
         });
 
-        res.status(200).json({ message: 'Login successful' });
+        res.status(200).json({ token: token, message: 'Login successful' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal server error' });
