@@ -1,5 +1,4 @@
 # Five-Starter
-
 A five-minute starter template for procrastinators. Get your app up and running in no time!
 
 ## Table of Contents
@@ -91,4 +90,3 @@ To test the API for OAuth2 authentication, you can use the `test.http` file incl
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
